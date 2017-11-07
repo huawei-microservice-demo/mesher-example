@@ -1,0 +1,35 @@
+routeRule:
+  MesherServer:
+    - precedence: 2
+      route:
+      - tags:
+          version: 0.2
+          app: HelloWorld
+        weight: 70
+      - tags:
+          version: 0.1
+          app: HelloWorld
+        weight:30
+      match:
+        refer: special-header
+    - precedence: 1
+          route:
+          - tags:
+              version: 0.2
+            weight: 100
+sourceTemplate:
+  special-header:
+    source: app
+    sourceTags:
+      version: 1.2
+      app: default
+    httpHeaders:
+      cookie:
+        regex:
+      X-Age:
+        exact: "18"
+plugin:
+destinationResolver: host
+admin:
+  serverUri: 127.0.0.1:30102
+  goRuntimeMetrics: true
