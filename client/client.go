@@ -5,6 +5,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"os"
 	"sync"
 )
 
@@ -41,6 +42,11 @@ type ErrorHandler struct {
 }
 
 func doGet(api string, w http.ResponseWriter) {
+
+	providerName, isExsist := os.LookupEnv("PROVIDER_NAME")
+	if isExsist {
+		desitination = providerName
+	}
 	req, err := http.NewRequest(http.MethodGet, schema+desitination+api, nil)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
