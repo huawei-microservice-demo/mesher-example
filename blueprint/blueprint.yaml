@@ -76,7 +76,7 @@ node_templates:
           node: clientpackage
           relationship: hwpaas.relationships.PacakgeConsistsOf
       - package:
-          node: mesher
+          node: mesherconsumer
           relationship: hwpaad.relationships.PackageConsistsOf
       - volume:
           node: cse-localtime-volume
@@ -105,7 +105,7 @@ node_templates:
             mountpath: /etc/localtime
             readonly: true
 
-  mesher:
+  mesherconsumer:
     type: hwpaas.nodes.SoftwareComponent
     properties:
       package:
@@ -114,7 +114,7 @@ node_templates:
           image: { get_input: image-mesher }
         env:
           - name: "SERVICE_NAME"
-            value: { get_input: service-name-server}
+            value: { get_input: service-name-client}
           - name: "CSE_REGISTRY_ADDR"
             value: { get_input: cse-service-center }
           - name: "CSE_CONFIG_CENTER_ADDR"
@@ -137,7 +137,7 @@ node_templates:
           node: serverpackage
           relationship: hwpaas.relationships.PacakgeConsistsOf
       - package:
-          node: mesher
+          node: mesherprovider
           relationship: hwpaad.relationships.PackageConsistsOf
       - volume:
           node: cse-localtime-volume
@@ -161,6 +161,27 @@ node_templates:
             - port: 3000
               nodePort: { get_input: mesher_client_port}
               targetPort: 3000
+        volumes:
+          - name: localtime
+            mountpath: /etc/localtime
+            readonly: true
+
+  mesherprovider:
+    type: hwpaas.nodes.SoftwareComponent
+    properties:
+      package:
+        package_type: container
+        containe_spec:
+          image: { get_input: image-mesher }
+        env:
+          - name: "SERVICE_NAME"
+            value: { get_input: service-name-server}
+          - name: "CSE_REGISTRY_ADDR"
+            value: { get_input: cse-service-center }
+          - name: "CSE_CONFIG_CENTER_ADDR"
+            value: { get_input: cse-config-center }
+          - name: "SPECIFIC_ADDR"
+            value: { get_input: specific_addr }
         volumes:
           - name: localtime
             mountpath: /etc/localtime
