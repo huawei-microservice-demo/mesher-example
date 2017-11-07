@@ -115,10 +115,52 @@ node_templates:
         env:
           - name: "SERVICE_NAME"
             value: { get_input: service-name-server}
-          - name: "CSE_REGISTRY_AADR"
+          - name: "CSE_REGISTRY_ADDR"
             value: { get_input: cse-service-center }
-          - name: "CSE_CONFIG_CENTER_AADR"
+          - name: "CSE_CONFIG_CENTER_ADDR"
             value: { get_input: cse-config-center }
+        volumes:
+          - name: localtime
+            mountpath: /etc/localtime
+            readonly: true
+
+  mesher-server:
+    type: hwpaas.nodes.Application
+    properties:
+      type: container
+      name: { get_input: appname-server }
+    requirements:
+      - host:
+          node: mesherexample-host
+          relationship: hwpaas.relationships.HostedOn
+      - package:
+          node: serverpackage
+          relationship: hwpaas.relationships.PacakgeConsistsOf
+      - package:
+          node: mesher
+          relationship: hwpaad.relationships.PackageConsistsOf
+      - volume:
+          node: cse-localtime-volume
+          relationship: hwpaas.relationships.AttachedTo
+
+  serverpackage:
+    type: hwpaas.nodes.SoftwareComponent
+    properties:
+      package:
+        package_type: container
+        containe_spec:
+          image: { get_input: image-server }
+        env:
+          - name: "PROVIDER_NAME"
+            value: { get_input: service-name-server}
+          - name: "SERVICE_MESH_IP"
+            value: { get_input: service_mesh_ip }
+        service_spec:
+          type: NodePort
+          ports:
+            - port: 3000
+              nodePort: { get_input: mesher_client_port}
+              targetPort: 3000
         volumes:
           - name: localtime
             mountpath: /etc/localtime
