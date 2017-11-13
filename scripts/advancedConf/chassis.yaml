@@ -1,0 +1,59 @@
+---
+cse:
+  service:
+    registry:
+      address:
+      scope:
+      watch:
+      api:
+        version:v3
+  config:
+    client:
+      serverUri:
+      refreshMode:
+      refreshInterval:
+      tenantName:
+      autodiscovery:
+      refreshPort:
+      api:
+        version: v3
+
+  protocols:
+    http:
+      listenAddress:
+      advertiseAddress:
+  handler:
+    chain:
+      consumer:
+        outcome: ratelimiter-consumer, bizkeeper-consumer, loadbalance
+      provider:
+        income: ratelimiter-provider, local-selection
+
+ssl:
+
+  registry.consumer.cipherPlugin: default
+  registry.consumer.verifyPeer: false
+  registry.consumer.cipherSuits: TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256, TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+  registry.consumer.protocol: TLSv1.2
+  registry.consumer.caFile:
+  registry.consumer.certFile:
+  registry.consumer.keyFile:
+  registry.consumer.certPwdFile:
+
+  configcenter.consumer.cipherPlugin: default
+  configcenter.consumer.verifyPeer: false
+  configcenter.consumer.cipherSuits: TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256, TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+  configcenter.consumer.protocol: TLSv1.2
+  configcenter.consumer.caFile:
+  configcenter.consumer.certFile:
+  configcenter.consumer.keyFile:
+  configcenter.consumer.certPwdFile:
+
+  monitor.consumer.cipherPlugin: default
+  monitor.consumer.verifyPeer: false
+  monitor.consumer.cipherSuits: TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256, TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+  monitor.consumer.protocol: TLSv1.2
+  monitor.consumer.caFile:
+  monitor.consumer.certFile:
+  monitor.consumer.keyFile:
+  monitor.consumer.certPwdFile:

@@ -1,0 +1,188 @@
+tosca_definitions_version : hwpass_tosca_version_1_4_1
+
+inputs:
+  image-client:
+    default:
+  image-server:
+    default:
+  image-mesher:
+    default:
+  appname-client:
+    default: "mesher-client"
+    description: "A Client to demonstrate Mesher"
+  appname-server:
+    default: "mesher-server"
+    description: "A Server to demonstrate Mesher"
+  cse-service-center:
+    default: "https://cse-service-center:30100"
+  cse-config-center:
+    default: "https://cse-config-center:30103"
+  specific_addr:
+    default: "http://127.0.0.1:9090"
+  service-name-client:
+    default: "clientmesher"
+  service-name-server:
+    default: "servermesher"
+  service_mesh_ip:
+    default: "http://0.0.0.0:30101"
+  mesher_admin_ip:
+    default: "http://0.0.0.0:30102"
+  mesher_client_port:
+    default: "3000"
+
+node_templates:
+  cse-localtime-volume:
+    type: hwpass.nodes.LocalVolume
+    properties:
+      name: localtime
+      type: local_storage
+      host_path: /etc/localtime
+
+  cse-resolv_volume:
+    type: hwpaas.nodes.LocalVolume
+    properties:
+      name: resolv
+      type:local_storage
+      host_path: /etc/resolv.conf
+
+  mesherexample-host:
+    type: hwpaas.nodes.Cluster
+    properties:
+      name: XXXX
+      namespace: deafult
+      instance: 1
+
+
+  example-group:
+    type: hwpaas.nodes.AppGroup
+    requirements:
+      - member:
+          node: mesher-client
+          relationship: hwpaas.relationships.ConsistsOf
+      - member:
+          node: mesher-server
+          relationship: hwpaas.relationships.ConsistsOf
+
+  mesher-client:
+    type: hwpaas.nodes.Application
+    properties:
+      type: container
+      name: { get_input: appname-client }
+    requirements:
+      - host:
+          node: mesherexample-host
+          relationship: hwpaas.relationships.HostedOn
+      - package:
+          node: clientpackage
+          relationship: hwpaas.relationships.PacakgeConsistsOf
+      - package:
+          node: mesherconsumer
+          relationship: hwpaad.relationships.PackageConsistsOf
+      - volume:
+          node: cse-localtime-volume
+          relationship: hwpaas.relationships.AttachedTo
+
+  clientpackage:
+    type: hwpaas.nodes.SoftwareComponent
+    properties:
+      package:
+        package_type: container
+        containe_spec:
+          image: { get_input: image-client }
+        env:
+          - name: "PROVIDER_NAME"
+            value: { get_input: service-name-server}
+          - name: "SERVICE_MESH_IP"
+            value: { get_input: service_mesh_ip }
+        service_spec:
+          type: NodePort
+          ports:
+            - port: 3000
+              nodePort: { get_input: mesher_client_port}
+              targetPort: 3000
+        volumes:
+          - name: localtime
+            mountpath: /etc/localtime
+            readonly: true
+
+  mesherconsumer:
+    type: hwpaas.nodes.SoftwareComponent
+    properties:
+      package:
+        package_type: container
+        containe_spec:
+          image: { get_input: image-mesher }
+        env:
+          - name: "SERVICE_NAME"
+            value: { get_input: service-name-client}
+          - name: "CSE_REGISTRY_ADDR"
+            value: { get_input: cse-service-center }
+          - name: "CSE_CONFIG_CENTER_ADDR"
+            value: { get_input: cse-config-center }
+        volumes:
+          - name: localtime
+            mountpath: /etc/localtime
+            readonly: true
+
+  mesher-server:
+    type: hwpaas.nodes.Application
+    properties:
+      type: container
+      name: { get_input: appname-server }
+    requirements:
+      - host:
+          node: mesherexample-host
+          relationship: hwpaas.relationships.HostedOn
+      - package:
+          node: serverpackage
+          relationship: hwpaas.relationships.PacakgeConsistsOf
+      - package:
+          node: mesherprovider
+          relationship: hwpaad.relationships.PackageConsistsOf
+      - volume:
+          node: cse-localtime-volume
+          relationship: hwpaas.relationships.AttachedTo
+
+  serverpackage:
+    type: hwpaas.nodes.SoftwareComponent
+    properties:
+      package:
+        package_type: container
+        containe_spec:
+          image: { get_input: image-server }
+        env:
+          - name: "PROVIDER_NAME"
+            value: { get_input: service-name-server}
+          - name: "SERVICE_MESH_IP"
+            value: { get_input: service_mesh_ip }
+        service_spec:
+          type: NodePort
+          ports:
+            - port: 3000
+              nodePort: { get_input: mesher_client_port}
+              targetPort: 3000
+        volumes:
+          - name: localtime
+            mountpath: /etc/localtime
+            readonly: true
+
+  mesherprovider:
+    type: hwpaas.nodes.SoftwareComponent
+    properties:
+      package:
+        package_type: container
+        containe_spec:
+          image: { get_input: image-mesher }
+        env:
+          - name: "SERVICE_NAME"
+            value: { get_input: service-name-server}
+          - name: "CSE_REGISTRY_ADDR"
+            value: { get_input: cse-service-center }
+          - name: "CSE_CONFIG_CENTER_ADDR"
+            value: { get_input: cse-config-center }
+          - name: "SPECIFIC_ADDR"
+            value: { get_input: specific_addr }
+        volumes:
+          - name: localtime
+            mountpath: /etc/localtime
+            readonly: true

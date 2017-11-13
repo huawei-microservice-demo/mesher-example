@@ -1,0 +1,22 @@
+cse:
+  isolation:
+    Consumer:
+      timeout:
+        enabled: true
+    timeoutInMilliseconds: 1000
+    maxConcurrentRequests: 100
+  circuitBreaker:
+    Consumer:
+      enabled: true
+      forceOpen: false
+      forceClosed: false
+      sleepWindowInMilliseconds: 10000
+      rfequestVolumeThreshold: 20
+      errorThresholdPercentage: 50
+  fallback:
+    Consumer:
+      enabled: true
+      maxConcurrentRequests: 20
+  fallbackpolicy:
+    Consumer:
+      policy: throwexception
