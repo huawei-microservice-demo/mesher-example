@@ -12,7 +12,7 @@ check_GOPATH(){
 service="server"
 appname="serviceserver"
 packagename=$appname.tar.gz
-SCRIPT_PATH=$(cd $(dirname $0);pwd)
+SCRIPT_PATH=$(cd $(dirname $0);pwd)/../server
 BUILD_PATH=$(cd $(dirname $SCRIPT_PATH);pwd)/$service
 
 cd $BUILD_PATH
@@ -28,7 +28,7 @@ cp serverapp $appname
 tar -czvf $packagename $appname
 rm -rf $appname
 rm -rf serverapp
-mv $packagename $SCRIPT_PATH
+#mv $packagename $SCRIPT_PATH
 cd $SCRIPT_PATH
-docker build -f Dockerfile_Server .
+docker build -t mesher-server:latest .
 rm -rf $packagename

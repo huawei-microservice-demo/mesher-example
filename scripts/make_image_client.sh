@@ -12,7 +12,7 @@ check_GOPATH(){
 service="client"
 appname="serviceclient"
 packagename=$appname.tar.gz
-SCRIPT_PATH=$(cd $(dirname $0);pwd)
+SCRIPT_PATH=$(cd $(dirname $0);pwd)/../client
 BUILD_PATH=$(cd $(dirname $SCRIPT_PATH);pwd)/$service
 
 cd $BUILD_PATH
@@ -28,8 +28,8 @@ cp clientapp $appname
 tar -czvf $packagename $appname
 rm -rf $appname
 rm -rf clientapp
-mv $packagename $SCRIPT_PATH
+#mv $packagename $SCRIPT_PATH
 cd $SCRIPT_PATH
-docker build -f Dockerfile_Client .
+docker build -t mesher-client:latest .
 rm -rf $packagename
 
