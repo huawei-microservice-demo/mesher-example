@@ -7,11 +7,11 @@ import (
 	"net/http"
 	"os"
 	"sync"
+	"strings"
 )
 
 var (
-	schema       = "http://"
-	desitination = "servermesher"
+	destination = ""
 )
 
 func main() {
@@ -47,7 +47,35 @@ func doGet(api string, w http.ResponseWriter) {
 	if isExsist {
 		desitination = providerName
 	}
-	req, err := http.NewRequest(http.MethodGet, schema+desitination+api, nil)
+	dat, _ := ioutil.ReadFile("conf/app.conf")
+	confArray := strings.Split(string(dat), "\n")
+
+	providerArray := strings.Split(confArray[0], "=")
+	if providerArray[1] != "" {
+		destination = providerArray[1]
+
+	} else {
+		providerAddr, isExsist := os.LookupEnv("PROVIDER_ADDR")
+		if isExsist {
+			destination = providerAddr
+		} else {
+			fmt.Println("Please configure PROVIDER_ADDR in app.conf or env variable")
+			os.Exit(1)
+		}
+	}
+
+	httpArray := strings.Split(confArray[1], "=")
+	if httpArray[1] != "" {
+		os.Setenv("http_proxy", httpArray[1])
+
+	} else {
+		httpproxyAddr, isExsist := os.LookupEnv("http_proxy")
+		if isExsist {
+			os.Setenv("http_proxy", httpproxyAddr)
+		}
+		fmt.Println("Please configure http_proxy in app.conf or env variable if you want to use mesher as a SideCar")
+	}
+	req, err := http.NewRequest(http.MethodGet, destination+api, nil)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte(err.Error()))
