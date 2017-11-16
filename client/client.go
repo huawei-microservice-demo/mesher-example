@@ -8,6 +8,7 @@ import (
 	"os"
 	"sync"
 	"strings"
+	"fmt"
 )
 
 var (
@@ -27,25 +28,9 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-
-	// The router is just an http.Handler, so it can be used to create a server in the usual fashion:
-	err = http.ListenAndServe("0.0.0.0:3000", router)
-	if err != nil {
-		log.Fatal(err)
-	}
-}
-
-var status int = 200
-var mu sync.RWMutex
-
-type ErrorHandler struct {
-}
-
-func doGet(api string, w http.ResponseWriter) {
-
 	providerName, isExsist := os.LookupEnv("PROVIDER_NAME")
 	if isExsist {
-		desitination = providerName
+		destination = providerName
 	}
 	dat, _ := ioutil.ReadFile("conf/app.conf")
 	confArray := strings.Split(string(dat), "\n")
@@ -75,6 +60,23 @@ func doGet(api string, w http.ResponseWriter) {
 		}
 		fmt.Println("Please configure http_proxy in app.conf or env variable if you want to use mesher as a SideCar")
 	}
+
+	// The router is just an http.Handler, so it can be used to create a server in the usual fashion:
+	err = http.ListenAndServe("0.0.0.0:3000", router)
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+
+var status int = 200
+var mu sync.RWMutex
+
+type ErrorHandler struct {
+}
+
+func doGet(api string, w http.ResponseWriter) {
+
+	
 	req, err := http.NewRequest(http.MethodGet, destination+api, nil)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
