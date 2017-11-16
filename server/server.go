@@ -45,6 +45,8 @@ type ErrorHandler struct {
 func (e *ErrorHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	mu.RLock()
 	w.WriteHeader(status)
+	fmt.Println("Error in serving the response")
+	fmt.Println(w)
 	mu.RUnlock()
 }
 
@@ -55,6 +57,8 @@ func (e *ErrorHandler2) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	mu.Lock()
 	s := r.URL.Query().Get(":status")
 	status, _ = strconv.Atoi(s)
+	fmt.Println("Error in serving the response")
+	fmt.Println(status)
 	mu.Unlock()
 }
 
