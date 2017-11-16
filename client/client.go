@@ -62,6 +62,7 @@ func main() {
 	}
 
 	// The router is just an http.Handler, so it can be used to create a server in the usual fashion:
+	fmt.Println("Client Started on 3000 port")
 	err = http.ListenAndServe("0.0.0.0:3000", router)
 	if err != nil {
 		log.Fatal(err)
@@ -105,6 +106,7 @@ func doGet(api string, w http.ResponseWriter) {
 	return
 }
 func (e *ErrorHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("Serving /errors request ")
 	doGet("/errors", w)
 }
 
@@ -112,5 +114,6 @@ type LatencyHandler struct {
 }
 
 func (e *LatencyHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("Serving /latency request")
 	doGet("/latency", w)
 }
