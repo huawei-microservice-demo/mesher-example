@@ -49,17 +49,17 @@ func main() {
 		}
 	}
 
-	httpArray := strings.Split(confArray[1], "=")
-	if httpArray[1] != "" {
-		os.Setenv("http_proxy", httpArray[1])
+	//httpArray := strings.Split(confArray[1], "=")
+	//if httpArray[1] != "" {
+		//os.Setenv("http_proxy", httpArray[1])
 
-	} else {
+	//} else {
 		httpproxyAddr, isExsist := os.LookupEnv("http_proxy")
 		if isExsist {
 			os.Setenv("http_proxy", httpproxyAddr)
 		}
-		fmt.Println("Please configure http_proxy in app.conf or env variable if you want to use mesher as a SideCar")
-	}
+	//	fmt.Println("Please configure http_proxy in app.conf or env variable if you want to use mesher as a SideCar")
+	//}
 
 	// The router is just an http.Handler, so it can be used to create a server in the usual fashion:
 	fmt.Println("Client Started on 3000 port")
