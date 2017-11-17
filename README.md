@@ -118,3 +118,5 @@ root@mesher-01-eip:~# curl -v http://117.78.44.191:3000/TestErrors
 * Connection #0 to host 117.78.44.191 left intact
 
 ```
+
+Please follow the steps [here](metricsConfiguration.md) configuration to Configure your application to monitor metrics in Grafana.
