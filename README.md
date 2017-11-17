@@ -3,6 +3,16 @@
 
 ## Configuring Grafana Dashboard 
 Mesher exposes metric information in Prometheus format. We can configure a grafana Dashboard to monitor our running services.
+
+
+#### **Configuration** 
+ In mesher.yaml file add these configuration
+ ```
+ admin:
+   serverUri: 0.0.0.0:30102 
+   goRuntimeMetrics: true  # select true if you want run time information in metrics.
+ ```
+
 #### **steps**
   - Download Prometheus .
     * For downloading standalone binary distribution for windows/linux [click here](https://prometheus.io/download/)
