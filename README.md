@@ -78,8 +78,9 @@ export http_proxy=http://127.0.0.1:30101
 ./client
 ```
 This will bring up Client on 3000 port exposing the below Api's
-```		{Name: "latency", Method: rata.GET, Path: "/TestLatency"},
-		{Name: "error", Method: rata.GET, Path: "/TestErrors"},
+```		
+	{Name: "latency", Method: rata.GET, Path: "/TestLatency"},
+	{Name: "error", Method: rata.GET, Path: "/TestErrors"},
 ```
 
 Congratulations, Now all your applications are running with Mesher
@@ -122,5 +123,8 @@ root@mesher-01-eip:~# curl -v http://117.78.44.191:3000/TestErrors
 * Connection #0 to host 117.78.44.191 left intact
 
 ```
+
+You can manage your Micro-Service in Governance Console in CSE.
+
 
 Please follow the steps [here](metricsConfiguration.md) to Configure your application to monitor metrics in Grafana.
