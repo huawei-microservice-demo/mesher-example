@@ -119,4 +119,4 @@ root@mesher-01-eip:~# curl -v http://117.78.44.191:3000/TestErrors
 
 ```
 
-Please follow the steps [here](metricsConfiguration.md) configuration to Configure your application to monitor metrics in Grafana.
+Please follow the steps [here](metricsConfiguration.md) to Configure your application to monitor metrics in Grafana.
