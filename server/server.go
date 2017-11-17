@@ -36,7 +36,7 @@ func main() {
 
 }
 
-var status int = 200
+var status int = 500
 var mu sync.RWMutex
 
 type ErrorHandler struct {
