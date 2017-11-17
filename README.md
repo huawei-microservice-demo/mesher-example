@@ -24,7 +24,7 @@ cd server
 this will start the Server exposing the below API's on 3000 port
 ```
     {Name: "latency", Method: rata.GET, Path: "/latency"}, 
-    {Name: "error", Method: rata.GET, Path: "/errors"},\
+    {Name: "error", Method: rata.GET, Path: "/errors"},
     {Name: "latency2", Method: rata.POST, Path: "/latency/:duration"},
     {Name: "error2", Method: rata.POST, Path: "/errors/:status"},
 ```
@@ -77,8 +77,12 @@ export http_proxy=http://127.0.0.1:30101
 
 ./client
 ```
+This will bring up Client on 3000 port exposing the below Api's
+```		{Name: "latency", Method: rata.GET, Path: "/TestLatency"},
+		{Name: "error", Method: rata.GET, Path: "/TestErrors"},
+```
 
-Now all your applications are running with Mesher
+Congratulations, Now all your applications are running with Mesher
 
 now you can call the Client Api's
 
