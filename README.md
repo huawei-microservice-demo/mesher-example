@@ -9,14 +9,12 @@ You can run these services in Huawei Public Cloud or in your local Machine and r
 
 You can follow the below steps to run the services in your local VM's and use the CSE Service-Center to register the micro-service, you can also use the Config-Center of CSE to manage your configurations. CSE also provider monitoring sever which can help you to monitor your service statistics.
 
-Step 1:
-Clone the code
+Step 1: Clone the code
 ```
 git clone https://github.com/huawei-microservice-demo/mesher-example.git
 ```
 
-Step 2:
-Start the server
+Step 2: Start the server
 ```
 cd server
 ./server
@@ -29,14 +27,15 @@ this will start the Server exposing the below API's on 3000 port
     {Name: "error2", Method: rata.POST, Path: "/errors/:status"},
 ```
 
-Step 3:
-Start the Mesher Provider
+Step 3: Download  and start the Mesher Provider
 Export the following variables
 ```
 export CSE_REGISTRY_ADDR=https://cse.cn-north-1.myhwclouds.com:443
 export CSE_CONFIG_CENTER_ADDR=https://cse.cn-north-1.myhwclouds.com:443
-export SPECIFIC_ADDR=127.0.0.1:3000
 export CSE_MONITOR_SERVER_ADDR=https://cse.cn-north-1.myhwclouds.com:443
+#tell mesher where is your service listen at
+export SPECIFIC_ADDR=127.0.0.1:3000 
+#tell mesher your service name
 export SERVICE_NAME=demoServer
 ```
 Run the start script to start the mesher
@@ -45,13 +44,13 @@ Run the start script to start the mesher
 ```
 this will make the Mesher Provider run at 30101 port
 
-Step 4:
-Start the Mesher Consumer(you can use the different VM or change the port at which mesher will run)
+Step 4: Start the Mesher Consumer(you can use the different VM or change the port at which mesher will run)
 Export the following variables
 ```
 export CSE_REGISTRY_ADDR=https://cse.cn-north-1.myhwclouds.com:443
 export CSE_CONFIG_CENTER_ADDR=https://cse.cn-north-1.myhwclouds.com:443
 export CSE_MONITOR_SERVER_ADDR=https://cse.cn-north-1.myhwclouds.com:443
+#tell mesher your service name
 export SERVICE_NAME=demoClient
 ```
 Run the start script to Start the Mesher Consumer
