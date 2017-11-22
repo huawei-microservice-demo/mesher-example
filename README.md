@@ -12,7 +12,7 @@ You can follow the below steps to run the services in your local VM's and use th
 Step 1:
 Clone the code
 ```
-cd https://github.com/huawei-microservice-demo/mesher-example.git
+git clone https://github.com/huawei-microservice-demo/mesher-example.git
 ```
 
 Step 2:
