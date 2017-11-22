@@ -10,13 +10,15 @@ You can run these services in Huawei Public Cloud or in your local Machine and r
 You can follow the below steps to run the services in your local VM's and use the CSE Service-Center to register the micro-service, you can also use the Config-Center of CSE to manage your configurations. CSE also provider monitoring sever which can help you to monitor your service statistics.
 
 Step 1: Clone the code
-```
-git clone https://github.com/huawei-microservice-demo/mesher-example.git
+```sh
+export GOPATH=$PWD
+go get github.com/huawei-microservice-demo/mesher-example/server
+go get github.com/huawei-microservice-demo/mesher-example/client
 ```
 
 Step 2: Start the server
-```
-cd server
+```sh
+cd bin
 ./server
 ```
 this will start the Server exposing the below API's on 3000 port
@@ -62,7 +64,7 @@ This will bring up the Mesher Consumer in 30101 port
 Step 5:
 Start the Client
 ```
-cd client
+cd src/github.com/huawei-microservice-demo/mesher-example/client
 vi conf/app.conf
 
 ## Edit the below addr
