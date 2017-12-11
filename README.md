@@ -15,6 +15,7 @@ Or you can connect to [Service center](https://github.com/ServiceComb/service-ce
 You can follow the below steps to run the services in your local VM's and use the CSE Service-Center to register the micro-service, you can also use the Config-Center of CSE to manage your configurations. CSE also provider monitoring sever which can help you to monitor your service statistics.
 
 **Notice**: you should prepare 2 VM to run this demo
+
 Step 1: Clone the code in VM1
 ```sh
 export GOPATH=$PWD
