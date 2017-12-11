@@ -42,6 +42,29 @@ this will start the Server exposing the below API's on 3000 port
 ```
 
 Step 3: Download  and start the Mesher in both VM
+You can download the Mesher release from [here](/release/mesher-1.0.5.tar) and choose one of the below options for running the Mesher.
+##### Running Mesher with Open Source [Service-Center](https://github.com/ServiceComb/service-center)
+One way for bringing up the Mesher easily is to [download](https://github.com/ServiceComb/service-center/releases) the open-source service-center and follow the [guide](https://github.com/ServiceComb/service-center#quick-start) to bring up the service-center locally.
+Once the Service-Center is running then you can follow the below steps to run Mesher in VM2.
+
+Export the following variables in VM2
+```
+export CSE_REGISTRY_ADDR=http://127.0.0.1:30100
+#tell mesher where is your service listen at
+export SPECIFIC_ADDR=127.0.0.1:3000 
+#tell mesher your service name
+export SERVICE_NAME=demoServer
+```
+Run the start script to start the mesher
+```
+./start.sh
+```
+this will make the Mesher Provider run at 30101 port
+
+##### Running Mesher with [CSE](http://www.huaweicloud.com/product/cse.html)
+Another way to bring up the Mesher is to use the  [CSE](http://www.huaweicloud.com/product/cse.html) Service-Center and Governance Console. For registering your microservice to CSE service-center you will need the AK/SK of your project which can be found by following the steps [here](https://support.huaweicloud.com/api-dis/mrs_02_0008.html).  
+Once you got the AK/SK then you need to configure the AK/SK in mesher conf/chassis.yaml by following the steps [here](https://support.huaweicloud.com/devg-servicestage/cse_mesh_0013.html) 
+
 Export the following variables in VM2
 ```
 export CSE_REGISTRY_ADDR=https://cse.cn-north-1.myhwclouds.com:443
@@ -59,6 +82,26 @@ Run the start script to start the mesher
 this will make the Mesher Provider run at 30101 port
 
 Step 4: Start the Mesher in VM1
+Based on your selection of Service-Center in Step 3 you can configure the Mesher in VM1 
+
+##### Running Mesher with Open Source Service-Center
+Export the following variables
+```
+#Based on where your opensource service-center is running you can configure the below IP
+export CSE_REGISTRY_ADDR=http://127.0.0.1:30100  
+#tell mesher your service name
+export SERVICE_NAME=demoClient
+```
+Run the start script to Start the Mesher Consumer
+```
+./start.sh
+```
+This will bring up the Mesher in 30101 port
+
+##### Running Mesher with [CSE](http://www.huaweicloud.com/product/cse.html)
+
+You need to configure AK/SK as per steps given in Step3 and then follow the below commands.
+
 Export the following variables
 ```
 export CSE_REGISTRY_ADDR=https://cse.cn-north-1.myhwclouds.com:443
