@@ -1,15 +1,16 @@
 # Mesher Example
 
-### Making your service resilient using Mesher
+## Making your service resilient using Mesher
 
 This example shows you how to make your service as a Micro-Service using Mesher. In this example we have two simple services called client and server. We make this service use Mesher to do the communication between them and helps you to make your service robust and resilient.
 
-### Running Service in Cloud Service Engine(CSE)
+## Running Service in Cloud Service Engine(CSE) or with open source solution
 
 You can run these services in Huawei Public Cloud or in your local Machine and register these micro-services in CSE. And make use of [CSE](http://www.huaweicloud.com/product/cse.html) Governance Console[ to mange and monitor the services.
 
 Or you can connect to [Service center](https://github.com/ServiceComb/service-center) without CSE, but you will lose monitoring, Hot-reconfigurarion features
 
+## Get Started
 You can follow the below steps to run the services in your local VM's and use the CSE Service-Center to register the micro-service, you can also use the Config-Center of CSE to manage your configurations. CSE also provider monitoring sever which can help you to monitor your service statistics.
 
 Step 1: Clone the code
