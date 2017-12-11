@@ -11,16 +11,21 @@ You can run these services in Huawei Public Cloud or in your local Machine and r
 Or you can connect to [Service center](https://github.com/ServiceComb/service-center) without CSE, but you will lose monitoring, Hot-reconfigurarion and Governance web console features
 
 ## Get Started
+### Run locally
 You can follow the below steps to run the services in your local VM's and use the CSE Service-Center to register the micro-service, you can also use the Config-Center of CSE to manage your configurations. CSE also provider monitoring sever which can help you to monitor your service statistics.
-
-Step 1: Clone the code
+**Notice**: you should prepare 2 VM to run this demo
+Step 1: Clone the code in VM1
+```sh
+export GOPATH=$PWD
+go get github.com/huawei-microservice-demo/mesher-example/client
+```
+Clone in VM2
 ```sh
 export GOPATH=$PWD
 go get github.com/huawei-microservice-demo/mesher-example/server
-go get github.com/huawei-microservice-demo/mesher-example/client
 ```
 
-Step 2: Start the server
+Step 2: Start the server in VM2
 ```sh
 cd bin
 ./server
@@ -33,8 +38,8 @@ this will start the Server exposing the below API's on 3000 port
     {Name: "error2", Method: rata.POST, Path: "/errors/:status"},
 ```
 
-Step 3: Download  and start the Mesher Provider
-Export the following variables
+Step 3: Download  and start the Mesher in both VM
+Export the following variables in VM2
 ```
 export CSE_REGISTRY_ADDR=https://cse.cn-north-1.myhwclouds.com:443
 export CSE_CONFIG_CENTER_ADDR=https://cse.cn-north-1.myhwclouds.com:443
@@ -50,7 +55,7 @@ Run the start script to start the mesher
 ```
 this will make the Mesher Provider run at 30101 port
 
-Step 4: Start the Mesher Consumer(you can use the different VM or change the port at which mesher will run)
+Step 4: Start the Mesher in VM1
 Export the following variables
 ```
 export CSE_REGISTRY_ADDR=https://cse.cn-north-1.myhwclouds.com:443
@@ -63,10 +68,10 @@ Run the start script to Start the Mesher Consumer
 ```
 ./start.sh
 ```
-This will bring up the Mesher Consumer in 30101 port
+This will bring up the Mesher in 30101 port
 
 Step 5:
-Start the Client
+Start the Client in VM1
 ```
 cd src/github.com/huawei-microservice-demo/mesher-example/client
 vi conf/app.conf
