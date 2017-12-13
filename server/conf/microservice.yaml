@@ -1,5 +1,5 @@
 ---
 service_description:
-  name: mesherClient
+  name: mesherServer
 properties:
   allowCrossApp: true
