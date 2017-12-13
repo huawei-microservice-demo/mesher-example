@@ -1,33 +1,43 @@
 version: '2'
 services:
-  ServerMesher:
+  Server:
     build:
       context: ./server
       dockerfile: Dockerfile-alternate
-    image: mesher-server:latest
-    ports:
-      - 3000:3000
-  ClientMesher:
+    image: server:latest
+    links:
+      - ServiceCenter
+#    ports:
+#      - 3000:3000
+  Client:
     build:
       context: ./client
       dockerfile: Dockerfile-alternate
-    image: mesher-client:latest
+    image: client:latest
     environment:
       - http_proxy=127.0.0.1:30101
     ports:
-      - 4000:3000
+      - 3000:3000
     links:
-      - ServerMesher
+      - Server
+      - ServiceCenter
   MyPrometheus:
     build: ./prometheus
     image: my-prometheus:latest
     ports:
       - 9090:9090
+    links:
+      - Server
+      - Client
   MyGrafana:
     image: grafana/grafana
     ports:
-      - 5000:3000
+      - 9000:3000
   MyZipkin:
     image: openzipkin/zipkin
     ports:
       - 9411:9411
+  ServiceCenter:
+    image: servicecomb/service-center
+    ports:
+      - 30100:30100
