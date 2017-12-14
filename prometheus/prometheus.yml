@@ -6,10 +6,10 @@ scrape_configs:
   - job_name: mesherserver
     metrics_path: '/v1/mesher/metrics'
     static_configs:
-      - targets: ['Server:30102']
+      - targets: ['MesherProvider:30102']
   - job_name: mesherclient
     metrics_path: '/v1/mesher/metrics'
     static_configs:
-      - targets: ['Client:30102']
+      - targets: ['MesherConsumer:30102']
 
 
