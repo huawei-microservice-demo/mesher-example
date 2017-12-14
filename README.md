@@ -74,6 +74,7 @@ export CSE_MONITOR_SERVER_ADDR=https://cse.cn-north-1.myhwclouds.com:443
 export SPECIFIC_ADDR=127.0.0.1:3000 
 #tell mesher your service name
 export SERVICE_NAME=demoServer
+export VERSION=0.0.1
 ```
 Run the start script to start the mesher
 ```
@@ -129,7 +130,7 @@ PROVIDER_ADDR=http://demoServer
 
 ### Export the http_proxy so that all calls going from Client is proxied through MesherConsumer
 
-export http_proxy=http://127.0.0.1:30101
+export http_proxy=127.0.0.1:30101
 
 ./client
 ```
@@ -144,7 +145,7 @@ Congratulations, Now all your applications are running with Mesher
 now you can call the Client Api's
 
 ```
-root@mesher-01-eip:~# curl -v http://117.78.44.191:3000/TestLatency
+root@mesher-01-eip:~# curl -v 117.78.44.191:3000/TestLatency
 *   Trying 117.78.44.191...
 * Connected to 117.78.44.191 (117.78.44.191) port 3000 (#0)
 > GET /TestLatency HTTP/1.1
@@ -163,7 +164,7 @@ The host serving this request is mesher-02 and the IP is 192.168.1.155
 ```
 
 ```
-root@mesher-01-eip:~# curl -v http://117.78.44.191:3000/TestErrors
+root@mesher-01-eip:~# curl -v 117.78.44.191:3000/TestErrors
 *   Trying 117.78.44.191...
 * Connected to 117.78.44.191 (117.78.44.191) port 3000 (#0)
 > GET /TestErrors HTTP/1.1
