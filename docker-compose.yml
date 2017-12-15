@@ -6,7 +6,7 @@ services:
       - 30100:30100
   MesherProvider:
     build:
-      context: ./release
+      context: /opt/mesher/
       dockerfile: Dockerfile-alternate
     image: mesher-provider:latest
     environment:
@@ -17,9 +17,12 @@ services:
       - SPECIFIC_ADDR=127.0.0.1:3000
     links:
       - ServiceCenter
+      - MyZipkin
+    volumes:
+      - /opt/mesher/conf:/tmp
   MesherConsumer:
     build:
-      context: ./release
+      context: /opt/mesher/
       dockerfile: Dockerfile-alternate
     image: mesher-consumer:latest
     environment:
@@ -29,8 +32,11 @@ services:
       - APP_ID=default
     links:
       - ServiceCenter
+      - MyZipkin
     ports:
-      - 3000:3000
+      - 9000:3000
+    volumes:
+      - /opt/mesher/conf:/tmp
   Server:
     build:
       context: ./server
@@ -56,7 +62,7 @@ services:
   MyGrafana:
     image: grafana/grafana
     ports:
-      - 9000:3000
+      - 3000:3000
   MyZipkin:
     image: openzipkin/zipkin
     ports:
