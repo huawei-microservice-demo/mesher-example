@@ -63,7 +63,19 @@ services:
     image: grafana/grafana
     ports:
       - 3000:3000
+    links:
+      - MyPrometheus
   MyZipkin:
     image: openzipkin/zipkin
     ports:
       - 9411:9411
+  Importer:
+    image: giantswarm/tiny-tools
+    depends_on:
+      - MyGrafana
+    links:
+      - MyGrafana
+    entrypoint: /bin/sh import.sh
+    working_dir: /opt/grafana-import-dashboards
+    volumes:
+      - ./grafana:/opt/grafana-import-dashboards
