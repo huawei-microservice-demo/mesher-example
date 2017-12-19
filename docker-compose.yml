@@ -1,14 +1,48 @@
 version: '2'
 services:
+  ServiceCenter:
+    image: servicecomb/service-center
+    ports:
+      - 30100:30100
+  MesherProvider:
+    build:
+      context: /opt/mesher/
+      dockerfile: Dockerfile-alternate
+    image: mesher-provider:latest
+    environment:
+      - CSE_REGISTRY_ADDR=http://ServiceCenter:30100 #https://cse.cn-north-1.myhwclouds.com:443
+      - SERVICE_NAME=Server
+      - VERSION=0.0.1
+      - APP_ID=default
+      - SPECIFIC_ADDR=127.0.0.1:3000
+    links:
+      - ServiceCenter
+      - MyZipkin
+    volumes:
+      - /opt/mesher/conf:/tmp
+  MesherConsumer:
+    build:
+      context: /opt/mesher/
+      dockerfile: Dockerfile-alternate
+    image: mesher-consumer:latest
+    environment:
+      - CSE_REGISTRY_ADDR=http://ServiceCenter:30100 #https://cse.cn-north-1.myhwclouds.com:443
+      - SERVICE_NAME=Client
+      - VERSION=0.0.1
+      - APP_ID=default
+    links:
+      - ServiceCenter
+      - MyZipkin
+    ports:
+      - 9000:3000
+    volumes:
+      - /opt/mesher/conf:/tmp
   Server:
     build:
       context: ./server
       dockerfile: Dockerfile-alternate
     image: server:latest
-    links:
-      - ServiceCenter
-#    ports:
-#      - 3000:3000
+    network_mode: "service:MesherProvider"
   Client:
     build:
       context: ./client
@@ -16,28 +50,32 @@ services:
     image: client:latest
     environment:
       - http_proxy=127.0.0.1:30101
-    ports:
-      - 3000:3000
-    links:
-      - Server
-      - ServiceCenter
+    network_mode: "service:MesherConsumer"
   MyPrometheus:
     build: ./prometheus
     image: my-prometheus:latest
     ports:
       - 9090:9090
     links:
-      - Server
-      - Client
+      - MesherProvider
+      - MesherConsumer
   MyGrafana:
     image: grafana/grafana
     ports:
-      - 9000:3000
+      - 3000:3000
+    links:
+      - MyPrometheus
   MyZipkin:
     image: openzipkin/zipkin
     ports:
       - 9411:9411
-  ServiceCenter:
-    image: servicecomb/service-center
-    ports:
-      - 30100:30100
+  Importer:
+    image: giantswarm/tiny-tools
+    depends_on:
+      - MyGrafana
+    links:
+      - MyGrafana
+    entrypoint: /bin/sh import.sh
+    working_dir: /opt/grafana-import-dashboards
+    volumes:
+      - ./grafana:/opt/grafana-import-dashboards
