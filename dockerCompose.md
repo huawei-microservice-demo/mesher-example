@@ -11,7 +11,10 @@ tar -xvf release/mesher-1.0.5.tar
 
 tar -C /opt/mesher -xvf mesher-1.0.5-linux.tar.gz
 
-cp Dockerfile-alternate /opt/mesher/
+cp scripts/Dockerfile-alternate /opt/mesher/
+cp scripts/start_mesher.sh /opt/mesher/
+cp scripts/wait_for_sc.sh /opt/mesher/
+
 
 docker-compose up
 ```
