@@ -74,7 +74,6 @@ export CSE_MONITOR_SERVER_ADDR=https://cse.cn-north-1.myhwclouds.com:443
 export SPECIFIC_ADDR=127.0.0.1:3000 
 #tell mesher your service name
 export SERVICE_NAME=demoServer
-export VERSION=0.0.1
 ```
 Run the start script to start the mesher
 ```
