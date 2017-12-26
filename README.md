@@ -57,7 +57,7 @@ export SERVICE_NAME=demoServer
 ```
 Run the start script to start the mesher
 ```
-./start.sh
+./mesher
 ```
 this will make the Mesher Provider run at 30101 port
 
@@ -78,7 +78,7 @@ export VERSION=0.0.1
 ```
 Run the start script to start the mesher
 ```
-./start.sh
+./mesher
 ```
 this will make the Mesher Provider run at 30101 port
 
@@ -95,7 +95,7 @@ export SERVICE_NAME=demoClient
 ```
 Run the start script to Start the Mesher Consumer
 ```
-./start.sh
+./mesher
 ```
 This will bring up the Mesher in 30101 port
 
@@ -113,7 +113,7 @@ export SERVICE_NAME=demoClient
 ```
 Run the start script to Start the Mesher Consumer
 ```
-./start.sh
+./mesher
 ```
 This will bring up the Mesher in 30101 port
 
