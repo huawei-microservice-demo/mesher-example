@@ -12,6 +12,10 @@ You can run these services in Huawei Public Cloud or in your local Machine and r
 Or you can connect to [Service center](https://github.com/ServiceComb/service-center) without CSE, but you will lose monitoring, Hot-reconfigurarion and Governance web console features
 
 ## Get Started
+
+### Run with Docker-Compose
+One of the great options to run this example is to use docker-compose, you can follow [this guideline](dockerCompose.md) to run this example.
+
 ### Run locally
 You can follow the below steps to run the services in your local VM's and use the CSE Service-Center to register the micro-service, you can also use the Config-Center of CSE to manage your configurations. CSE also provider monitoring sever which can help you to monitor your service statistics.
 
