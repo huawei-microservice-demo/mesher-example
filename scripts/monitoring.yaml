@@ -1,0 +1,12 @@
+cse:
+  monitor: #Send monitoring data to CSE monitor Server
+    client:
+      serverUri: https://cse.cn-north-1.myhwclouds.com:443   # monitor server url
+      enable: true                           #set it to true if you want to send the data to monitor server
+#      userName: default                     # Authentication headers
+#      domainName: default                   # Authentication headers
+#
+tracing:
+  enabled: true #enable distribution tracing
+  collectorType: zipkin       #zipkin: Send tracing info to zipkin server
+  collectorTarget: http://0.0.0.0:9411/api/v1/spans
