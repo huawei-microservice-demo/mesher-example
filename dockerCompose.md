@@ -2,25 +2,27 @@
 
 To run this example using docker compose you can execute the following commands
 
+##### Step 1
+Clone the code
 ```
 git clone https://github.com/huawei-microservice-demo/mesher-example
-
 cd mesher-example
-
+```
+##### Step 2
+Prepare the env
+```
 mkdir -p /opt/mesher
-
 tar -xvf release/mesher-1.0.5.tar
-
 tar -C /opt/mesher -xvf mesher-1.0.5-linux.tar.gz
-
 cp scripts/Dockerfile-alternate /opt/mesher/
 cp scripts/start_mesher.sh /opt/mesher/
 cp scripts/wait_for_sc.sh /opt/mesher/
-
-
+```
+##### Step 3
+Run Docker-Compose to bring up all the containers
+```
 docker-compose up
 ```
-
 This will bring up Service-Center, Client, Server, MesherConsumer, MesherProvider, Zipkin, Grafana and Prometheus in docker container.
 
 ```
@@ -37,8 +39,8 @@ fd482f1b5ea7        servicecomb/service-center   "/root/start.sh"         About 
 
 ```
 
+##### Step 4
 You can verify the Client using below url
-
 ```
 curl -v http://127.0.0.1:9000/TestLatency
 *   Trying 127.0.0.1...
