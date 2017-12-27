@@ -61,8 +61,8 @@ The host serving this request is 781e3ea3f1dd and the IP is 172.18.0.4
 ```
 Client is available on http://localhost:9000  
 The Service-center is running on http://localhost:30100  
-The Zipkin Dashboard will be available on http://localhost:9411  
-The Grafana Dashboard will be available on http://localhost:3000  
-Prometheus data is available on http://localhost:9090
+The Zipkin Dashboard will be available on http://localhost:9411/zipkin/  
+The Grafana Dashboard will be available on http://localhost:3000/dashboard/db/mesher-dashboard?refresh=5s&orgId=1  
+Prometheus data is available on http://localhost:9090/graph
 
 
