@@ -17,6 +17,7 @@ tar -C /opt/mesher -xvf mesher-1.0.5-linux.tar.gz
 cp scripts/Dockerfile-alternate /opt/mesher/
 cp scripts/start_mesher.sh /opt/mesher/
 cp scripts/wait_for_sc.sh /opt/mesher/
+cp scripts/monitoring.yaml /opt/mesher/conf/
 ```
 ##### Step 3
 Run Docker-Compose to bring up all the containers
