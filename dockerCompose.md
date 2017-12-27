@@ -19,6 +19,13 @@ cp scripts/start_mesher.sh /opt/mesher/
 cp scripts/wait_for_sc.sh /opt/mesher/
 cp scripts/monitoring.yaml /opt/mesher/conf/
 ```
+Now you need to update the IP of the machine in monitoring.yaml
+```
+vi /opt/mesher/conf/monitoring.yaml
+```
+replace http://0.0.0.0:9411/api/v1/spans with http://MACHINE_IP:9411/api/v1/spans  
+
+
 ##### Step 3
 Run Docker-Compose to bring up all the containers
 ```
