@@ -5,6 +5,8 @@ To run this example using docker compose you can execute the following commands
 ```
 git clone https://github.com/huawei-microservice-demo/mesher-example
 
+cd mesher-example
+
 mkdir -p /opt/mesher
 
 tar -xvf release/mesher-1.0.5.tar
