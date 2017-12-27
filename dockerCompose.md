@@ -59,10 +59,10 @@ The Latency for this request is : 100ms
 * Connection #0 to host 127.0.0.1 left intact
 The host serving this request is 781e3ea3f1dd and the IP is 172.18.0.4
 ```
-Client is available on http://localhost:9000
-The Service-center is running on http://localhost:30100
-The Zipkin Dashboard will be available on http://localhost:9411
-The Grafana Dashboard will be available on http://localhost:3000
+Client is available on http://localhost:9000  
+The Service-center is running on http://localhost:30100  
+The Zipkin Dashboard will be available on http://localhost:9411  
+The Grafana Dashboard will be available on http://localhost:3000  
 Prometheus data is available on http://localhost:9090
 
 
