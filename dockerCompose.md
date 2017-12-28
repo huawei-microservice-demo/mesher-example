@@ -12,14 +12,13 @@ cd mesher-example
 Prepare the env
 ```
 mkdir -p /opt/mesher
-tar -xvf release/mesher-1.0.5.tar
-tar -C /opt/mesher -xvf mesher-1.0.5-linux.tar.gz
+tar -C /opt/mesher -xvf release/mesher-1.0.5-linux.tar.gz
 cp scripts/Dockerfile-alternate /opt/mesher/
 cp scripts/start_mesher.sh /opt/mesher/
 cp scripts/wait_for_sc.sh /opt/mesher/
 cp scripts/monitoring.yaml /opt/mesher/conf/
 ```
-Now you need to update the IP of the machine in monitoring.yaml
+Now you need to update the IP of the machine in monitoring.yaml to report tracing information to Zipkin
 ```
 vi /opt/mesher/conf/monitoring.yaml
 ```
