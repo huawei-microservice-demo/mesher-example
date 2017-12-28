@@ -1,4 +1,4 @@
 tracing:
   enabled: true #enable distribution tracing
   collectorType: zipkin       #zipkin: Send tracing info to zipkin server
-  collectorTarget: http://0.0.0.0:9411/api/v1/spans # replace 0.0.0.0 with your machine IP
+  collectorTarget: http://MyZipkin:9411/api/v1/spans # replace 0.0.0.0 with your machine IP
