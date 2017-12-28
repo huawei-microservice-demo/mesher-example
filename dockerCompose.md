@@ -12,7 +12,7 @@ cd mesher-example
 Prepare the env
 ```
 mkdir -p /opt/mesher
-tar -C /opt/mesher -xvf release/mesher-1.0.5-linux.tar.gz
+tar -C /opt/mesher -xvf release/mesher-1.0.5.tar
 cp scripts/Dockerfile-alternate /opt/mesher/
 cp scripts/start_mesher.sh /opt/mesher/
 cp scripts/wait_for_sc.sh /opt/mesher/
