@@ -52,40 +52,52 @@ One way for bringing up the Mesher easily is to [download](https://github.com/Se
 Once the Service-Center is running then you can follow the below steps to run Mesher in VM2.
 
 1.Export the following variables in VM2
-```
+```sh
 export CSE_REGISTRY_ADDR=http://127.0.0.1:30100
 #tell mesher where is your service listen at
 export SPECIFIC_ADDR=127.0.0.1:3000
 ```
 2.edit conf/chassis.yaml
-change advertiseAddress and listenAddress to internal IP
+change advertiseAddress and listenAddress to external IP
+**Example:**
+```yaml
+  protocols:
+    http:
+      listenAddress: 192.168.1.1:30101
+```
 
 3.edit conf/microservice.yaml
-change name to "demoServer", or any service name you like
+change name to `demoServer`
 
 4.Run  mesher
-```
+```sh
 ./mesher
 ```
 this will make the Mesher Provider run at 30101 port
 
 #### Running Mesher with [CSE](http://www.huaweicloud.com/product/cse.html)
 Another way to bring up the Mesher is to use the  [CSE](http://www.huaweicloud.com/product/cse.html) Service-Center and Governance Console. For registering your microservice to CSE service-center you will need the AK/SK of your project which can be found by following the steps [here](https://support.huaweicloud.com/api-dis/mrs_02_0008.html).  
-Once you got the AK/SK then you need to configure the AK/SK in mesher conf/chassis.yaml by following the steps [here](https://support.huaweicloud.com/devg-servicestage/cse_mesh_0013.html) 
+Once you got the AK/SK then you need to configure the AK/SK in mesher conf/auth.yaml by following the steps [here](https://support.huaweicloud.com/devg-servicestage/cse_mesh_0013.html) 
 
 1.Export the following variables in VM2
-```
+```sh
 #tell mesher where is your service listen at
 export SPECIFIC_ADDR=127.0.0.1:3000 
 ```
 2.edit conf/chassis.yaml
-change advertiseAddress and listenAddress to internal IP
+change advertiseAddress and listenAddress to external IP
+**Example:**
+```yaml
+  protocols:
+    http:
+      listenAddress: 192.168.1.1:30101
+```
 
 3.edit conf/microservice.yaml
-change name to "demoServer", or any service name you like
+change name to `demoServer`
 
 4.Run  mesher
-```
+```sh
 ./mesher
 ```
 this will make the Mesher Provider run at 30101 port
@@ -95,14 +107,12 @@ Based on your selection of Service-Center in Step 3 you can configure the Mesher
 
 ##### Running Mesher with Open Source Service-Center
 Export the following variables
-```
+```sh
 #Based on where your opensource service-center is running you can configure the below IP
-export CSE_REGISTRY_ADDR=http://127.0.0.1:30100  
-#tell mesher your service name
-export SERVICE_NAME=demoClient
+export CSE_REGISTRY_ADDR=http://127.0.0.1:30100
 ```
-Run the start script to Start the Mesher Consumer
-```
+Run mesher
+```sh
 ./mesher
 ```
 This will bring up the Mesher in 30101 port
@@ -112,16 +122,16 @@ This will bring up the Mesher in 30101 port
 You need to configure AK/SK as per steps given in Step3 and then follow the below commands.
 
 1.edit conf/microservice.yaml
-change name to "demoClient", or any service name you like
-Run the start script to Start the Mesher Consumer
-```
+change name to `demoClient`
+Run mesher
+```sh
 ./mesher
 ```
 This will bring up the Mesher in 30101 port
 
 Step 5:
 Start the Client in VM1
-```
+```sh
 cd src/github.com/huawei-microservice-demo/mesher-example/client
 vi conf/app.conf
 
@@ -137,16 +147,16 @@ export http_proxy=127.0.0.1:30101
 ./client
 ```
 This will bring up Client on 3000 port exposing the below Api's
-```		
-	{Name: "latency", Method: rata.GET, Path: "/TestLatency"},
-	{Name: "error", Method: rata.GET, Path: "/TestErrors"},
+```     
+    {Name: "latency", Method: rata.GET, Path: "/TestLatency"},
+    {Name: "error", Method: rata.GET, Path: "/TestErrors"},
 ```
 
 Congratulations, Now all your applications are running with Mesher
 
 now you can call the Client Api's
 
-```
+```sh
 root@mesher-01-eip:~# curl -v 117.78.44.191:3000/TestLatency
 *   Trying 117.78.44.191...
 * Connected to 117.78.44.191 (117.78.44.191) port 3000 (#0)
@@ -165,7 +175,7 @@ The Latency for this request is : 100ms
 The host serving this request is mesher-02 and the IP is 192.168.1.155
 ```
 
-```
+```sh
 root@mesher-01-eip:~# curl -v 117.78.44.191:3000/TestErrors
 *   Trying 117.78.44.191...
 * Connected to 117.78.44.191 (117.78.44.191) port 3000 (#0)
